@@ -1,3 +1,5 @@
+> **HUOM!**  Materiaalin laadinnassa hyödynnetty ChatGPT-tekoälysovellusta
+
 # HTML, CSS ja JavaScriptin rooli ja yhteys
 
 ## HTML - Yleistä
@@ -246,3 +248,333 @@ fetch("https://api.example.com/data")
 - JavaScript tuo verkkosivuille toiminnallisuutta.
 - Yhdessä HTML:n ja CSS:n kanssa se muodostaa modernin webin perustan.
 - Sillä voi kehittää kaiken verkkosovelluksista mobiili- ja palvelinratkaisuihin.
+
+## HTML, CSS ja JavaScript verkkosivussa
+
+### Erilliset tiedostot
+
+> **Kehote (ChatGPT):** Voitko tehdä yksinkertaisen ja responsiivisen single page verkkosivun, jossa hyödynnetään html, css ja JavaScript. Kaikki ovat omissa tiedostoissaan.
+
+- index.html
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Single Page Web App</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Welcome to My Single Page</h1>
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home" class="section">
+      <h2>Home</h2>
+      <p>This is the home section. Scroll down to explore more!</p>
+    </section>
+
+    <section id="about" class="section">
+      <h2>About</h2>
+      <p>This is the about section. Learn more about this page here.</p>
+    </section>
+
+    <section id="contact" class="section">
+      <h2>Contact</h2>
+      <p>Feel free to reach out via the form below:</p>
+      <form id="contactForm">
+        <input type="text" id="name" placeholder="Your Name" required>
+        <input type="email" id="email" placeholder="Your Email" required>
+        <textarea id="message" placeholder="Your Message" required></textarea>
+        <button type="submit">Send</button>
+      </form>
+      <p id="formFeedback"></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 My Single Page</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+```
+- styles.css
+
+```css
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+header {
+  background: #333;
+  color: #fff;
+  padding: 1rem 0;
+  text-align: center;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline;
+  margin: 0 10px;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+main {
+  padding: 1rem;
+}
+
+.section {
+  margin: 2rem 0;
+  padding: 2rem;
+  background: #f4f4f4;
+  border-radius: 8px;
+}
+
+/* Form Styling */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+form input, form textarea, form button {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+form button {
+  background: #333;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+form button:hover {
+  background: #555;
+}
+
+footer {
+  text-align: center;
+  padding: 1rem 0;
+  background: #333;
+  color: #fff;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  nav ul li {
+    display: block;
+    margin: 5px 0;
+  }
+}
+```
+- script.js
+
+```javascript
+// Handle form submission
+document.getElementById('contactForm').addEventListener('submit', function (e) {
+  e.preventDefault();
+
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const message = document.getElementById('message').value;
+
+  const feedback = `Thank you, ${name}! We have received your message.`;
+  document.getElementById('formFeedback').innerText = feedback;
+
+  // Clear form fields
+  this.reset();
+});
+```
+### Kaikki yhdessä 
+
+> **Kehote (ChatGPT):** Voitko tehdä vielä saman sivun niin, että kaikki on yhdessä tiedostossa.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Single Page Web App</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    header {
+      background: #333;
+      color: #fff;
+      padding: 1rem 0;
+      text-align: center;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    nav ul li {
+      display: inline;
+      margin: 0 10px;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    main {
+      padding: 1rem;
+    }
+
+    .section {
+      margin: 2rem 0;
+      padding: 2rem;
+      background: #f4f4f4;
+      border-radius: 8px;
+    }
+
+    /* Form Styling */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    form input, form textarea, form button {
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    form button {
+      background: #333;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+
+    form button:hover {
+      background: #555;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem 0;
+      background: #333;
+      color: #fff;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 600px) {
+      nav ul li {
+        display: block;
+        margin: 5px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome to My Single Page</h1>
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home" class="section">
+      <h2>Home</h2>
+      <p>This is the home section. Scroll down to explore more!</p>
+    </section>
+
+    <section id="about" class="section">
+      <h2>About</h2>
+      <p>This is the about section. Learn more about this page here.</p>
+    </section>
+
+    <section id="contact" class="section">
+      <h2>Contact</h2>
+      <p>Feel free to reach out via the form below:</p>
+      <form id="contactForm">
+        <input type="text" id="name" placeholder="Your Name" required>
+        <input type="email" id="email" placeholder="Your Email" required>
+        <textarea id="message" placeholder="Your Message" required></textarea>
+        <button type="submit">Send</button>
+      </form>
+      <p id="formFeedback"></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 My Single Page</p>
+  </footer>
+
+  <script>
+    // Handle form submission
+    document.getElementById('contactForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const message = document.getElementById('message').value;
+
+      const feedback = `Thank you, ${name}! We have received your message.`;
+      document.getElementById('formFeedback').innerText = feedback;
+
+      // Clear form fields
+      this.reset();
+    });
+  </script>
+</body>
+</html>
+```
+
+## Ekstraa
+
+- HTML-validointi: https://validator.w3.org/
+- CSS-validointi: https://jigsaw.w3.org/css-validator/
+

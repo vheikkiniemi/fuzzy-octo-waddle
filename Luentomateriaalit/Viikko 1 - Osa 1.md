@@ -578,3 +578,91 @@ document.getElementById('contactForm').addEventListener('submit', function (e) {
 - HTML-validointi: https://validator.w3.org/
 - CSS-validointi: https://jigsaw.w3.org/css-validator/
 
+## Viitekehyksistä lyhyesti
+
+### Mikä on viitekehys?
+- **Viitekehys (Framework):** Valmiiksi rakennettu koodikokoelma ja rakenne, joka nopeuttaa ohjelmistojen kehittämistä.
+- Miksi käyttää viitekehyksiä?
+  - Säästää aikaa ja vähentää toistuvaa työtä.
+  - Tarjoaa standardeja ja parhaita käytäntöjä.
+  - Usein yhteisön tuki ja valmiit lisäosat.
+- Jaottelu:
+  - Frontend-viitekehykset (Käyttöliittymät).
+  - Backend-viitekehykset (Palvelinpuolen logiikka).
+
+### Frontend-viitekehykset
+**1. React**
+- Kehittäjä: Meta (Facebook).
+- Miksi suosittu?
+  - Komponenttipohjainen rakenne.
+  - Virtuaalinen DOM takaa nopeuden.
+  - Laaja ekosysteemi (esim. Next.js, React Native).
+- Käyttökohteet: SPA:t, mobiilisovellukset.
+
+**2. Vue.js**
+- Kehittäjä: Evan You.
+- Miksi suosittu?
+  - Helppokäyttöinen ja kevyt.
+  - Korkea suorituskyky ja kaksisuuntainen datan sitominen.
+- Käyttökohteet: Keskikokoiset projektit, startupit.
+
+**3. Angular**
+- Kehittäjä: Google.
+- Miksi suosittu?
+  - Koko paketti: sisältää kaiken reitityksestä tilanhallintaan.
+  - Hyvä tuki suurille projekteille.
+- Käyttökohteet: Yritystasoiset sovellukset.
+
+### Backend-viitekehykset
+**1. Node.js ja Express.js**
+- Miksi suosittu?
+  - JavaScript toimii sekä frontendissä että backendissä.
+  - Kevyt ja nopea.
+  - Hyvä API-kehitykseen (REST, GraphQL).
+- Käyttökohteet: Nopeat API:t, reaktiiviset sovellukset.
+
+**2. Django (Python)**
+- Miksi suosittu?
+  - "Batteries included" -filosofia: sisältää kaiken tietokannoista autentikointiin.
+  - Turvallisuus sisäänrakennettuna.
+- Käyttökohteet: Tietokantapohjaiset sovellukset.
+
+**3. Ruby on Rails**
+- Miksi suosittu?
+  - Helppo oppia ja tuottaa nopeasti tuloksia.
+  - Hyvä yhteisö ja valmiit lisäosat (gems).
+  - Käyttökohteet: Startup-sovellukset, verkkokaupat.
+
+### Full-Stack-viitekehykset
+**1. Next.js (React-pohjainen)**
+- Miksi suosittu?
+  - Server-side rendering (SSR) ja staattinen sivun luonti.
+  - Erinomainen SEO-tuki.
+- Käyttökohteet: Modernit verkkosovellukset.
+
+**2. Nuxt.js (Vue-pohjainen)**
+- Miksi suosittu?
+  - Vue.js:n laajennus staattisten ja dynaamisten sovellusten rakentamiseen.
+  - Sisäänrakennetut optimoinnit.
+- Käyttökohteet: Universaalit sovellukset.
+
+**3. Laravel (PHP)**
+- Miksi suosittu?
+  - Yksinkertainen syntaksi ja kattavat ominaisuudet.
+  - Sisältää kaiken reitityksestä ORM:ään.
+- Käyttökohteet: Verkkosivustot ja -sovellukset.
+
+### Kuinka valita viitekehys?
+1. Projektin vaatimukset
+- SPA, PWA vai monoliittinen sovellus?
+- Tarvitseeko staattista vai dynaamista renderöintiä?
+2. Tiimin osaaminen
+- Mitkä kielet ja teknologiat ovat tuttuja?
+- Onko tarvetta oppia uutta nopeasti?
+3. Skaalautuvuus ja tuki
+- Onko viitekehyksellä vahva yhteisö ja dokumentaatio?
+- Kuinka hyvin se skaalautuu tulevaisuuden tarpeisiin?
+4. Yhteisön ja työkalujen tuki
+- Käytettävissä olevat lisäosat, kirjastot ja integraatiot.
+- Suosituimmat viitekehykset tarjoavat pitkän aikavälin vakauden.
+

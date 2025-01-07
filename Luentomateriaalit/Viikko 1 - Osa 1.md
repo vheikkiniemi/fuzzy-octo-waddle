@@ -653,16 +653,19 @@ document.getElementById('contactForm').addEventListener('submit', function (e) {
 - Käyttökohteet: Verkkosivustot ja -sovellukset.
 
 ### Kuinka valita viitekehys?
-1. Projektin vaatimukset
+**1. Projektin vaatimukset**
 - SPA, PWA vai monoliittinen sovellus?
 - Tarvitseeko staattista vai dynaamista renderöintiä?
-2. Tiimin osaaminen
+
+**2. Tiimin osaaminen**
 - Mitkä kielet ja teknologiat ovat tuttuja?
 - Onko tarvetta oppia uutta nopeasti?
-3. Skaalautuvuus ja tuki
+
+**3. Skaalautuvuus ja tuki**
 - Onko viitekehyksellä vahva yhteisö ja dokumentaatio?
 - Kuinka hyvin se skaalautuu tulevaisuuden tarpeisiin?
-4. Yhteisön ja työkalujen tuki
+
+**4. Yhteisön ja työkalujen tuki**
 - Käytettävissä olevat lisäosat, kirjastot ja integraatiot.
 - Suosituimmat viitekehykset tarjoavat pitkän aikavälin vakauden.
 

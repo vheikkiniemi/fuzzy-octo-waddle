@@ -1,6 +1,7 @@
 > **HUOM!**  Materiaalin laadinnassa hyödynnetty ChatGPT-tekoälysovellusta
 
-# TÄMÄ TEKEYTYY
+> [!IMPORTANT] 
+> TÄMÄ TEKEYTYY
 
 # HTML, CSS ja JavaScript - On-Premise ja Cloud VM
 

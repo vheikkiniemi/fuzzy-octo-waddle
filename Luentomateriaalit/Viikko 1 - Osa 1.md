@@ -668,4 +668,3 @@ document.getElementById('contactForm').addEventListener('submit', function (e) {
 **4. Yhteisön ja työkalujen tuki**
 - Käytettävissä olevat lisäosat, kirjastot ja integraatiot.
 - Suosituimmat viitekehykset tarjoavat pitkän aikavälin vakauden.
-

@@ -1,19 +1,24 @@
-# IT00AL12-3003 Advanced web development - Daytime
+# IT00AK35-3003 Web-kehittämisen jatkokurssi - Päivätoteutus
 
-## Preliminary Schedule
-- Week 1: January 13, 2025, 12:00–15:00, Lectures 1 and 2 → Start
-- Week 2: January 20, 2025, 12:00–15:00, Lectures 3 and 4
-- Week 3: January 27, 2025, 12:00–13:30, Lecture 5
-- Week 4: February 3, 2025, 12:00–13:30, Lecture 6
-- Week 5: February 10, 2025, 12:00–13:30, Lecture 7
-- Week 6: February 17, 2025, 12:00–13:30, Lecture 8
-- Week 6: February 18, 2025, 12:00–13:30, Lecture 9
-- Winter Break
-- Week 7: March 3, 2025, 12:00–13:30, Lecture 10 → Project Introduction
-- Week 8: March 10, 2025, 12:00–13:30, Project Workshop 1
-- Week 9: March 17, 2025, 12:00–13:30, Project Workshop 2
-- Week 10: March 23, 2025, 12:00–13:30, Project Workshop 3
-- Week 11: March 31, 2025, 12:00–13:30, Project Workshop 4
-- Week 12: April 7, 2025, 12:00–15:00, Project Workshops 5 and 6
-- Week 13: April 14, 2025, 12:00–15:00, Project Workshops 7 and 8
-- Week 14: April 28, 2025, 12:00–15:00, Final Exam → If needed (see assessment) 
+## Alustava aikataulu
+- Viikko 1: 13.1.2025, klo 10:00-11:30, luento 1 → Startti
+- Viikko 2: 20.1.2025, klo 10:00-11:30, luento 2
+- Viikko 3: 27.1.2025, klo 10:00-11:30, luento 3
+- Viikko 4: 6.2.2025, klo 10:00-11:30, luento 4
+- Viikko 4: 7.2.2025, klo 8:00-9:30, luento 5
+- Viikko 5: 13.2.2025, klo 10:00-11:30, luento 6
+- Viikko 5: 14.2.2025, klo 16:00-17:30, luento 7
+- Viikko 6: 20.2.2025, klo 10:00-11:30, luento 8
+- Viikko 6: 21.2.2025, klo 10:00-11:30, luento 9
+- Talviloma
+- Viikko 7: 3.3.2025, klo 16:00-17:30, luento 10 → Projektin alustus
+- Viikko 7: 6.3.2025, klo 10:00-11:30, projektityöpaja 1
+- Viikko 8: 10.3.2025, klo 16:00-17:30, projektityöpaja 2
+- Viikko 9: 17.3.2025, klo 10:00-11.30, projektityöpaja 3
+- Viikko 10: 26.3.2025, klo 16:00-17:30, projektityöpaja 4
+- Viikko 10: 28.3.2025, klo 10:00-11.30, projektityöpaja 5
+- Viikko 11: 3.4.2025, klo 16:00-17:30, projektityöpaja 6
+- Viikko 12: 7.4.2025, klo 10:00-11:30, projektityöpaja 7
+- Viikko 12: 11.4.2025, klo 12:00-13:30, projektityöpaja 8
+- Viikko 13: 17.4.2025, klo 16:00-17:30, projektityöpaja 9
+- Viikko 14: 28.4.2025, klo 10:00-11:30, Loppukoe → Jos tarpeen (kts. arviointi) 

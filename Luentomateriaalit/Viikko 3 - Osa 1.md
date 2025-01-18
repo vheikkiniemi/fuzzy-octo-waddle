@@ -25,7 +25,7 @@
     3. Tietoturva:
         - Hyödynnä PaaS-palveluiden sisäänrakennettu HTTPS ja autentikointiratkaisut (esim. `Azure Active Directory`, `AWS Cognito`, `Firebase Authentication`).
 
-- Hyöty: Kehittäjä voi keskittyä sovelluksen toiminnallisuuteen ilman infrastruktuurin hallintaa.
+- **Hyöty**: Kehittäjä voi keskittyä sovelluksen toiminnallisuuteen ilman infrastruktuurin hallintaa.
 
 ##  Sovelluksen kehitys ja CI/CD-prosessi
 - Kehitysvaihe:

@@ -1,281 +1,109 @@
 > HUOM!  Materiaalin laadinnassa hyödynnetty ChatGPT-tekoälysovellusta
 
-# Node.js:n käyttö palvelinpuolella
-
-## Johdanto Node.js:iin
-`Node.js` on avoimen lähdekoodin palvelinpuolen JavaScript-ympäristö, joka mahdollistaa JavaScriptin suorittamisen palvelimella. Se perustuu Google V8 -JavaScript-moottoriin, ja sen vahvuuksia ovat nopeus, skaalautuvuus ja ei-estävä I/O-malli. Node.js soveltuu erityisesti verkkopalvelimien ja sovellusten rakentamiseen.
-
-### Historia ja yhteydet muihin tekniikoihin
-Node.js:n kehitti Ryan Dahl vuonna 2009, ja sen tarkoituksena oli luoda tehokas alusta, joka pystyy käsittelemään suurta määrää samanaikaisia yhteyksiä. Node.js eroaa perinteisistä palvelinympäristöistä, kuten PHP:stä tai Ruby on Railsista, siitä, että se käyttää ei-estävää tapahtumapohjaista mallia [artikkeli aiheesta](https://webcluesinfo.medium.com/asynchronous-programming-in-node-js-event-driven-architecture-and-non-blocking-i-o-41ac8ce52fc4). Node.js on myös tiiviisti yhteydessä JavaScriptin laajempaan ekosysteemiin, ja se mahdollistaa saman ohjelmointikielen käyttämisen sekä palvelimella että selaimessa.
-
-### Node.js:n tulevaisuus
-Node.js jatkaa kasvuaan ja sen käyttö laajenee yhä useampiin sovelluskohteisiin. Yhä useammat yritykset valitsevat Node.js:n skaalautuvuuden ja JavaScript-ekosysteemin takia. Reaaliaikaisen datan, kuten chat-palveluiden ja IoT-sovellusten, suosio tekee Node.js:stä yhä tärkeämmän teknologian. Tulevaisuudessa sen tehokkuutta voidaan odottaa kehitettävän edelleen, erityisesti monisäikeisyyden ja CI/CD-integraatioiden osalta.
-
-### Esimerkkikäyttökohteet
-Node.js sopii erityisesti seuraaviin sovelluksiin:
-- **Reaaliaikaiset sovellukset:** Chat-sovellukset, verkkopelit ja muut sovellukset, jotka vaativat nopeaa tiedon siirtoa palvelimen ja käyttäjän välillä.
-- **API-palvelimet:** REST- ja GraphQL-rajapinnat.
-- **Verkkosivustot ja -palvelut:** Erityisesti yksinkertaiset tai keskiraskaasti kuormitetut sivustot.
-- **IoT-sovellukset:** Laiteyhteydet ja reaaliaikainen tietojen käsittely IoT-laitteille.
-
-### Node.js:n plussat
-- **Nopeus:** Node.js perustuu V8-moottoriin, joka on äärimmäisen nopea.
-- **Yhteisö ja ekosysteemi:** npm tarjoaa valtavan määrän kirjastoja ja työkaluja.
-- **JavaScript-yhtenevyys:** Voit käyttää samaa kieltä palvelin- ja asiakaspuolella.
-- **Ei-estävä I/O:** Mahdollistaa suuren määrän samanaikaisia pyyntöjä.
-
-### Node.js:n miinukset
-- **Yksisäikeisyys:** Vaikka ei-estävä I/O on vahvuus, se voi aiheuttaa haasteita raskaan laskennan yhteydessä.
-- **Callback-helvetti:** Monimutkaiset asynkroniset toiminnot voivat johtaa vaikeasti hallittavaan koodiin, jos ei käytetä moderneja ratkaisuja, kuten async/await.
-- **Ei ihanteellinen CPU-intensiivisiin tehtäviin:** Node.js ei ole paras valinta raskaaseen laskentaan.
-
-## 1. Node.js:n Asennus
-
-### Asennus
-1. Lataa Node.js [viralliselta sivustolta](https://nodejs.org/).
-2. Tarkista asennuksen onnistuminen:
-   ```bash
-   node -v
-   npm -v
-   ```
-   
-### Ensimmäinen Node.js-sovellus
-Luo tiedosto `app.js` ja kirjoita siihen seuraavaa:
-
-```javascript
-console.log("Tervetuloa Node.js-maailmaan!");
-```
-
-Aja tiedosto Node.js:llä:
-```bash
-node app.js
-```
-Tulosteeksi tulee: `Tervetuloa Node.js-maailmaan!`
-
-## 2. Yksinkertaisen HTTP-palvelimen luominen
-
-Node.js:n sisäänrakennetulla `http`-moduulilla voidaan helposti luoda verkkopalvelin.
-
-### Esimerkki
-Luo tiedosto `server.js`:
-
-```javascript
-const http = require("http");
-
-const server = http.createServer((req, res) => {
-    res.writeHead(200, { "Content-Type": "text/plain" });
-    res.end("Hei maailma!
-");
-});
-
-const PORT = 3000;
-server.listen(PORT, () => {
-    console.log(`Palvelin käynnissä osoitteessa http://localhost:${PORT}`);
-});
-```
-
-Aja palvelin:
-```bash
-node server.js
-```
-
-Avaa selain ja mene osoitteeseen [http://localhost:3000](http://localhost:3000). Näet tekstin `Hei maailma!`.
-
-
-## 3. Staattisten tiedostojen palveleminen Expressillä
-
-Express on suosittu Node.js-kirjasto, joka yksinkertaistaa verkkopalvelimien luomista.
-
-### Asennus
-Asenna Express npm:llä:
-```bash
-npm install express
-```
-
-### Esimerkki
-Luo tiedosto `server.js` ja seuraava HTML-tiedosto `index.html`:
-
-**`index.html`:**
-```html
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Node.js + Express</title>
-</head>
-<body>
-    <h1>Hei Express!</h1>
-</body>
-</html>
-```
-
-**`server.js`:**
-```javascript
-const express = require("express");
-const path = require("path");
-
-const app = express();
-
-// Palvellaan staattisia tiedostoja
-app.use(express.static(path.join(__dirname)));
-
-const PORT = 3000;
-app.listen(PORT, () => {
-    console.log(`Palvelin käynnissä osoitteessa http://localhost:${PORT}`);
-});
-```
-
-Aja palvelin ja vieraile osoitteessa [http://localhost:3000](http://localhost:3000). Näet `Hei Express!`.
-
-## 4. Node.js ja Tietokannat
-
-Node.js tukee useita tietokantoja, kuten MySQL, PostgreSQL ja MongoDB. Alla on esimerkki MongoDB:n käytöstä.
-
-### MongoDB:n Käyttö Mongoose-kirjastolla
-
-#### Asennus
-1. Asenna MongoDB.
-2. Asenna Mongoose:
-   ```bash
-   npm install mongoose
-   ```
-
-#### Esimerkki
-Luo tiedosto `database.js`:
-
-```javascript
-const mongoose = require("mongoose");
-
-// Yhdistä tietokantaan
-mongoose.connect("mongodb://localhost:27017/testdb", { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => console.log("Yhteys tietokantaan onnistui"))
-    .catch(err => console.error("Tietokantavirhe:", err));
-
-// Mallin luominen
-const UserSchema = new mongoose.Schema({
-    name: String,
-    age: Number
-});
-const User = mongoose.model("User", UserSchema);
-
-// Uuden käyttäjän lisääminen
-const user = new User({ name: "Ville", age: 30 });
-user.save().then(() => console.log("Käyttäjä tallennettu!"));
-```
-
-Aja tiedosto ja tarkista, että MongoDB:hen lisättiin uusi dokumentti.
-
-## 5. Reaaliaikaiset Sovellukset (Socket.io)
-
-Node.js mahdollistaa reaaliaikaisen kommunikoinnin helposti Socket.io-kirjaston avulla. Tämä on hyödyllistä esimerkiksi chat-sovelluksissa.
-
-### Asennus
-Asenna Socket.io:
-```bash
-npm install socket.io
-```
-
-### Esimerkki
-Luo tiedostot `server.js` ja `index.html`:
-
-**`server.js`:**
-```javascript
-const http = require("http");
-const socketIo = require("socket.io");
-
-const server = http.createServer();
-const io = socketIo(server);
-
-io.on("connection", (socket) => {
-    console.log("Käyttäjä yhdistyi");
-
-    socket.on("message", (msg) => {
-        console.log("Viesti vastaanotettu:", msg);
-        socket.emit("message", `Viestisi: ${msg}`);
-    });
-
-    socket.on("disconnect", () => {
-        console.log("Käyttäjä poistui");
-    });
-});
-
-const PORT = 3000;
-server.listen(PORT, () => {
-    console.log(`Palvelin käynnissä osoitteessa http://localhost:${PORT}`);
-});
-```
-
-**`index.html`:**
-```html
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Socket.io</title>
-</head>
-<body>
-    <h1>Reaaliaikainen viestintä</h1>
-    <input id="message" placeholder="Kirjoita viesti">
-    <button onclick="sendMessage()">Lähetä</button>
-
-    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
-    <script>
-        const socket = io("http://localhost:3000");
-
-        function sendMessage() {
-            const msg = document.getElementById("message").value;
-            socket.emit("message", msg);
-        }
-
-        socket.on("message", (msg) => {
-            alert(msg);
-        });
-    </script>
-</body>
-</html>
-```
-
-Aja palvelin ja avaa HTML-sivu. Kirjoita viesti ja näet reaaliaikaisen palautteen.
-
-## Node.js:n asennus Debianissa
-
-Debianissa Node.js voidaan asentaa helposti käyttäen virallisia pakettivarastoja tai NodeSource-repositorion kautta uusimpien versioiden saamiseksi.
-
-### Vaihtoehto 1: Asennus Debianin pakettivarastosta
-
-1. Päivitä pakettiluettelo:
-   ```bash
-   sudo apt update
-   ```
-2. Asenna Node.js:
-   ```bash
-   sudo apt install -y nodejs npm
-   ```
-3. Tarkista asennuksen onnistuminen:
-   ```bash
-   node -v
-   npm -v
-   ```
-
-### Vaihtoehto 2: Asennus NodeSourcen avulla (suositeltu uusimmille versioille)
-
-1. Lisää NodeSourcen repository:
-   ```bash
-   curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-   ```
-   (Korvaa `18.x` halutulla versiolla.)
-2. Asenna Node.js:
-   ```bash
-   sudo apt install -y nodejs
-   ```
-3. Tarkista asennuksen onnistuminen:
-   ```bash
-   node -v
-   npm -v
-   ```
-
----
-
-## Yhteenveto
-
-Node.js on tehokas, skaalautuva ja moderni alusta, joka soveltuu erityisesti reaaliaikaisiin ja skaalautuviin verkkosovelluksiin. Sen vahva yhteisö ja laaja ekosysteemi tekevät siitä loistavan työkalun monenlaisiin ohjelmistoprojekteihin.
-
-Node.js:n oppiminen antaa sinulle mahdollisuuden rakentaa nykyaikaisia sovelluksia ja avaa ovia täysipinoisena kehittäjänä toimimiseen. Jos hallitset Node.js:n, hallitset tulevaisuuden tärkeimpiä teknologioita!
+# Staattiset ja dynaamiset web-sivustot
+
+Staattisen ja dynaamisen web-sivuston erot asiakas- ja palvelinsuunnassa perustuvat niiden tapaan käsitellä ja toimittaa sisältöä käyttäjille. Seuraavassa vertailua.
+
+## Asiakaspuoli (Client-Side)
+
+### Staattinen web-sivusto:
+- **Sisältö:** Sivuston sisältö on ennalta määritettyä ja pysyvää. Sama HTML, CSS ja JavaScript lähetetään kaikille käyttäjille sellaisenaan.
+- **Interaktiivisuus:** Rajoitettu. Mahdolliset interaktiot (esim. animaatiot tai käyttäjän toiminnan perusteella muuttuva sisältö) toteutetaan pelkästään JavaScriptin avulla ilman palvelimen tukea.
+- **Latausnopeus:** Staattiset sivustot latautuvat nopeammin, koska sisältö ei vaadi lisäkäsittelyä palvelimella.
+- **Esimerkki:** Yksinkertaiset portfolio- tai yrityssivut, joissa sisältö ei muutu käyttäjän toiminnan perusteella.
+
+### Dynaaminen web-sivusto:
+- **Sisältö:** Sivuston sisältö voi muuttua käyttäjän toiminnan, ajan tai muiden muuttujien mukaan. Frontend voi ladata tietoa palvelimelta esimerkiksi **AJAX**-kutsujen avulla (REST API, GraphQL).
+- **Interaktiivisuus:** Erittäin korkea. Käyttäjän toiminnan perusteella sisältö voi muuttua ilman koko sivun uudelleenlatausta.
+- **Esimerkki:** Verkkokaupat, joissa tuotteet ja hinnat haetaan palvelimelta tai sovellukset, kuten sosiaalisen median alustat.
+
+## Palvelinpuoli (Server-Side)
+
+### Staattinen web-sivusto:
+- **Sisällön luonti:** Sivut ovat valmiiksi luotuja tiedostoja (HTML, CSS, JavaScript), jotka palvelin vain lähettää asiakkaalle.
+- **Palvelimen rooli:** Yksinkertainen. Palvelin toimii vain tiedostojen tarjoajana (esim. Nginx tai Azure Static Web Apps). Ei laskentaa tai logiikkaa.
+- **Tietokanta:** Ei yleensä käytössä, koska sisältö on kiinteää eikä sitä tarvitse hakea tai muuttaa.
+- **Skalautuvuus:** Erittäin hyvin skaalautuva, koska palvelimen ei tarvitse tehdä muuta kuin toimittaa staattisia tiedostoja.
+- **Esimerkki:** GitHub Pages, jossa kaikki sisältö on suoraan tallennettu staattisina tiedostoina.
+
+### Dynaaminen web-sivusto:
+- **Sisällön luonti:** Sivut luodaan tai muokataan dynaamisesti palvelimella käyttäjän pyyntöjen perusteella. Esimerkiksi:
+  - Backend-sovellus (Node.js, Python, PHP) hakee tietoa tietokannasta ja luo HTML:n "lennossa".
+  - API:t palauttavat tietoa, jota frontend käyttää päivittääkseen sivustoa.
+- **Palvelimen rooli:** Käsittelee käyttäjän pyyntöjä, suorittaa laskentaa, hakee tietoa tietokannoista ja voi muokata sisältöä ennen sen lähettämistä asiakkaalle.
+- **Tietokanta:** Käytössä tietojen tallentamiseen ja hakemiseen (esim. käyttäjätiedot, tuotelistat).
+- **Skalautuvuus:** Vaatii enemmän resursseja, koska jokainen pyyntö voi vaatia laskentaa ja tietokantahakuja. Skaalautuminen riippuu palvelimien suorituskyvystä ja optimoinnista.
+- **Esimerkki:** WordPress-sivustot, verkkokaupat, sovellukset kuten Netflix.
+
+## Yhteenveto eroista
+
+| Ominaisuus                 | Staattinen web-sivusto                     | Dynaaminen web-sivusto                       |
+|----------------------------|--------------------------------------------|---------------------------------------------|
+| **Sisältö**                | Sama kaikille käyttäjille                 | Muuttuu käyttäjän toiminnan tai datan mukaan |
+| **Palvelimen rooli**       | Tiedostojen tarjoaminen                   | Laskenta, tietokantahaun suorittaminen      |
+| **Tietokanta**             | Ei tarvetta                              | Käytössä (esim. MySQL, MongoDB)            |
+| **Interaktiivisuus**       | Rajoitettu                               | Korkea                                     |
+| **Latausnopeus**           | Nopeampi                                 | Hitaampi, mutta kehittyneempi              |
+| **Skalautuvuus**           | Erittäin hyvä                            | Raskaampi, vaatii optimointia              |
+| **Käyttökohteet**          | Blogit, staattiset yrityssivut           | Verkkokaupat, sovellukset, interaktiiviset palvelut |
+
+# PaaS-malli - Palvelinpuolen yksi toteutustapa
+
+## Johdanto PaaS-malliin
+- Määritelmä: `Platform as a Service (PaaS)` tarjoaa kehittäjille alustan sovellusten kehittämiseen, julkaisemiseen ja hallintaan ilman tarvetta hallita infrastruktuuria.
+- Keskeiset ominaisuudet:
+  - Infrastruktuuri (palvelimet, verkot, tallennus) on abstrahoitu kehittäjältä.
+  - Tuki monille ohjelmointikielille ja kehyksille.
+  - Sisäänrakennettu skaalaus, tietoturva ja CI/CD-tuki.
+- PaaS-palveluiden esimerkkejä:
+  - Microsoft: `Azure App Service`, `Azure Static Web Apps`, `Azure Functions`
+  - Amazon Web Services (AWS): `AWS Elastic Beanstalk`, `AWS Lambda`
+  - Google Cloud: `Google App Engine`, `Cloud Functions`
+  - Heroku: Sovelluskehitys ja julkaisu.
+
+##  Web-sovelluksen suunnittelu PaaS-mallilla
+- Vaiheet suunnittelussa:
+    1. Sovelluksen vaatimukset:
+        - Valitse ohjelmointikieli ja teknologiat.
+        - Määrittele tarvittavat ominaisuudet ja tietokantatarpeet.
+    2. Valitse sopiva PaaS-alusta:
+        - Staattiset sovellukset: `Azure Static Web Apps`, `AWS Amplify`, `Google Firebase Hosting`.
+        - Dynaamiset sovellukset: `Azure App Service`, `Google App Engine`, `Heroku`.
+    3. Tietoturva:
+        - Hyödynnä PaaS-palveluiden sisäänrakennettu HTTPS ja autentikointiratkaisut (esim. `Azure Active Directory`, `AWS Cognito`, `Firebase Authentication`).
+
+- **Hyöty**: Kehittäjä voi keskittyä sovelluksen toiminnallisuuteen ilman infrastruktuurin hallintaa.
+
+##  Sovelluksen kehitys ja CI/CD-prosessi
+- Kehitysvaihe:
+  - Koodin kirjoittaminen ja paikallinen testaus (esim. `Visual Studio Code`).
+  - Hyödynnä PaaS-alustojen ominaisuuksia, kuten tukea useille käyttöympäristömuuttujille.
+- CI/CD-putki:
+  - Versionhallinta: GitHub, GitLab, Bitbucket.
+  - Julkaisuprosessin automatisointi:
+    - `Azure Static Web Apps`: Sisäänrakennettu GitHub Actions -integraatio.
+    - `AWS Elastic Beanstalk`: Pipeline-tuki AWS CodePipelinella.
+    - `Google App Engine`: Yhdistä Cloud Build -pipelinella.
+    - `Heroku`: Git-push -pohjainen julkaisu.
+- **Hyöty**: Päivitykset julkaistaan automaattisesti, mikä nopeuttaa kehityssykliä.
+
+##  Sovelluksen julkaisu PaaS-alustalla
+- Käyttöönoton vaiheet:
+    1. Luo PaaS-resurssi (esim. `Azure Static Web App`, `AWS Amplify` tai `Google Firebase Hosting`).
+    2. Konfiguroi sovelluksen asetukset, kuten domainit, ympäristömuuttujat ja tietoturva-asetukset.
+    3. Julkaise sovellus suoraan käyttämällä GitHub Actionsia, AWS CodePipelinea tai vastaavaa.
+- Esimerkki:
+  - HTML/CSS/JS-sivuston julkaisu Azure Static Web Appsilla osoitteeseen: `https://mywebapp.staticweb.app`
+  - Vaihtoehtoisesti AWS Amplifylla tai Firebase Hostingilla.
+- **Hyöty**: Nopeasti skaalautuva, valmis alusta isännöintiä varten.
+
+##  Ylläpito ja optimointi
+- Sovelluksen monitorointi:
+  - `Azure Monitor`, `AWS CloudWatch` ja `Google Cloud Monitoring` tarjoavat tietoa sovelluksen suorituskyvystä ja käyttäjädatan analysoinnista.
+- Skaalautuvuus:
+  - `Azure App Service`, `AWS Elastic Beanstalk` ja `Google App Engine` tukevat automaattista skaalautumista käyttäjämäärien mukaan.
+- Kustannusten optimointi:
+  - Hyödynnä oikea palvelutasosuunnitelma (esim. Free, Basic, Premium).
+- Tietoturva:
+  - Pidä sovellus ja sen riippuvuudet ajan tasalla.
+  - Integroi mukautettu domain ja SSL.

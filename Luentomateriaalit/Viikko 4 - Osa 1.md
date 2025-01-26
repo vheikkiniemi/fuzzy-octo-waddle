@@ -1,6 +1,6 @@
 > HUOM!  Materiaalin laadinnassa hyödynnetty ChatGPT-tekoälysovellusta
 
-# HTML, CSS ja JavaScript - Node.js:n käyttö
+# Node.js:n käyttö palvelinpuolella
 
 ## Johdanto Node.js:iin
 `Node.js` on avoimen lähdekoodin palvelinpuolen JavaScript-ympäristö, joka mahdollistaa JavaScriptin suorittamisen palvelimella. Se perustuu Google V8 -JavaScript-moottoriin, ja sen vahvuuksia ovat nopeus, skaalautuvuus ja ei-estävä I/O-malli. Node.js soveltuu erityisesti verkkopalvelimien ja sovellusten rakentamiseen.

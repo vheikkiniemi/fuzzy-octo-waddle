@@ -1,6 +1,6 @@
 > **NOTE!** The material has been created with the help of the ChatGPT AI application
 
-# HTML, CSS and JavaScript - Using Node.js
+# Using Node.js on the server side
 
 ## Introduction to Node.js
 

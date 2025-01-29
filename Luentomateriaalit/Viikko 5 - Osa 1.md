@@ -272,8 +272,6 @@ Debianissa Node.js voidaan asentaa helposti käyttäen virallisia pakettivarasto
    npm -v
    ```
 
----
-
 ## Yhteenveto
 
 Node.js on tehokas, skaalautuva ja moderni alusta, joka soveltuu erityisesti reaaliaikaisiin ja skaalautuviin verkkosovelluksiin. Sen vahva yhteisö ja laaja ekosysteemi tekevät siitä loistavan työkalun monenlaisiin ohjelmistoprojekteihin.

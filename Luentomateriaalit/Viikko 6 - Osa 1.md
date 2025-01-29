@@ -152,7 +152,7 @@ Tässä on yksinkertainen esimerkki React-sivusta, joka käyttää myös CSS:ä�
     ```
     npm run dev
     ```
-Sivusi näkyy selaimessa osoitteessa http://localhost:5173, ja sen pitäisi näyttää tyylitelty tervehdysteksti.
+    Sivusi näkyy selaimessa osoitteessa http://localhost:5173, ja sen pitäisi näyttää tyylitelty tervehdysteksti.
 
 # Hyvää taustamateriaalia
 - [Full Stack open](https://fullstackopen.com/#course-contents)

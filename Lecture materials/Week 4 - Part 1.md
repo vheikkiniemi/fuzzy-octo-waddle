@@ -1,3 +1,5 @@
+> **NOTE!** The material has been created with the help of the ChatGPT AI application
+
 # Introduction to React
 
 ## What is React?

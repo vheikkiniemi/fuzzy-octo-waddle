@@ -35,7 +35,7 @@ NoSQL-tietokannat ovat suunniteltu **dynaamisempaan ja skaalautuvampaan datan k�
 Node.js tukee laajasti sekä SQL- että NoSQL-tietokantoja erilaisten kirjastojen ja ORM-työkalujen avulla.
 
 ### **SQL-tietokannat Node.js:ssä**
-Jos käytät **PostgreSQL: ä** tai **MySQL: ä**, suositut Node.js-kirjastot ovat:
+Jos käytät **PostgreSQL:ää** tai **MySQL:ää**, suositut Node.js-kirjastot ovat:
 
 #### **PostgreSQL**
 ```js
@@ -70,11 +70,11 @@ connection.query('SELECT * FROM users', (err, results) => {
 });
 ```
 
-Jos haluat käyttää **ORM: ää**, **Prisma** ja **Sequelize** ovat hyviä vaihtoehtoja SQL-tietokannoille.
+Jos haluat käyttää **ORM:ää**, **Prisma** ja **Sequelize** ovat hyviä vaihtoehtoja SQL-tietokannoille.
 
 
 ### **NoSQL-tietokannat Node.js:ssä**
-Jos käytät **MongoDB: ä**, voit käyttää **Mongoosea**:
+Jos käytät **MongoDB:tä**, voit käyttää **Mongoosea**:
 ```js
 const mongoose = require('mongoose');
 
@@ -117,11 +117,9 @@ Node.js-sovelluksissa voidaan käyttää erilaisia tietokanta-arkkitehtuureja:
 ✅ **Varmuuskopiot ja replikointi** tietoturvan takaamiseksi  
 
 
----
-
 # **Node.js + SQLite CRUD-sovellus**
 
-Tässä projektissa toteutamme **Node.js**-sovelluksen, joka käyttää **SQLite**-tietokantaa CRUD-toimintojen hallintaan (**Create, Read, Update, Delete**).
+Seuraavassa toteutamme **Node.js**-sovelluksen, joka käyttää **SQLite**-tietokantaa CRUD-toimintojen hallintaan (**Create, Read, Update, Delete**).
 
 ## **Vaihe 1: Create (Lisää tietue tietokantaan)**
 
@@ -193,17 +191,17 @@ app.listen(port, () => {
 });
 ```
 
----
-
 ### **3. Testaa käyttäjän luonti**
 Käynnistä palvelin:
 ```sh
 node server.js
 ```
 
-### **Testaa Postmanilla tai curl-komennolla:**
+### **Testaa curl-komennolla:**
+**HUOM!** seuraava komento toimii windows-ympäristössä hyvin Git Bash -komentotulkissa:
 ```sh
-curl -X POST http://localhost:3000/users -H "Content-Type: application/json" -d '{"name": "Ville", "email": "ville@example.com"}'
+curl -X POST http://localhost:3000/users -H "Content-Type: application/json" \
+-d '{"name": "Ville", "email": "ville@example.com"}'
 ```
 
 Jos onnistuu, vastauksen pitäisi olla:
@@ -214,8 +212,6 @@ Jos onnistuu, vastauksen pitäisi olla:
   "email": "ville@example.com"
 }
 ```
-
----
 
 ## **Vaihe 2: Read (Tietojen hakeminen ja näyttäminen)**
 
@@ -242,7 +238,7 @@ Käynnistä palvelin uudelleen:
 node server.js
 ```
 
-Suorita seuraava **curl-komento** tai käytä Postmania:
+Suorita seuraava **curl-komento**:
 ```sh
 curl -X GET http://localhost:3000/users
 ```
@@ -258,7 +254,6 @@ Jos tietokannassa on käyttäjiä, saat vastauksen muodossa:
 ]
 ```
 
-Nyt CRUD-toiminnallisuuden **Read (Haku)** -osa on valmis!
 ## **Vaihe 3: Update (Tietojen päivittäminen)**
 
 ### **1. Lisää uusi reitti `PUT /users/:id`**
@@ -287,6 +282,13 @@ app.put('/users/:id', (req, res) => {
 });
 ```
 
+Suorita seuraava **curl-komento** (vaatii, että id:llä 1 on käyttäjä):
+```sh
+curl -X PUT http://localhost:3000/users/1 \
+     -H "Content-Type: application/json" \
+     -d '{"name": "Päivitetty Nimi", "email": "paivitetty@example.com"}'
+```
+
 ## **Vaihe 4: Delete (Poista käyttäjä)**
 
 ### **1. Lisää uusi reitti `DELETE /users/:id`**
@@ -309,11 +311,14 @@ app.delete('/users/:id', (req, res) => {
 });
 ```
 
-Nyt CRUD-sovelluksen kaikki neljä toimintoa on toteutettu!
+Suorita seuraava **curl-komento** (vaatii, että id:llä 1 on käyttäjä):
+```sh
+curl -X DELETE http://localhost:3000/users/1
+```
 
 ## **Vaihe 5: Frontend-testaus**
 
-Jotta voit tarjota HTML-sivusi suoraan Node.js:n ja Expressin avulla, sinun täytyy tehdä seuraavat vaiheet
+Jotta voit tarjota HTML-sivusi suoraan `Node.js`:n ja `Expressin` avulla, sinun täytyy tehdä seuraavat vaiheet
 
 ### **1. Luo `public`-kansio ja HTML-tiedosto**
 

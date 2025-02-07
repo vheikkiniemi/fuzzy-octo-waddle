@@ -1,278 +1,159 @@
 > HUOM!  Materiaalin laadinnassa hyödynnetty ChatGPT-tekoälysovellusta
 
-# Node.js:n käyttö palvelinpuolella
+# Johdanto Reactiin
 
-## Johdanto Node.js:iin
-`Node.js` on avoimen lähdekoodin palvelinpuolen JavaScript-ympäristö, joka mahdollistaa JavaScriptin suorittamisen palvelimella. Se perustuu Google V8 -JavaScript-moottoriin, ja sen vahvuuksia ovat nopeus, skaalautuvuus ja ei-estävä I/O-malli. Node.js soveltuu erityisesti verkkopalvelimien ja sovellusten rakentamiseen.
+## Mikä on React?
 
-### Historia ja yhteydet muihin tekniikoihin
-Node.js:n kehitti Ryan Dahl vuonna 2009, ja sen tarkoituksena oli luoda tehokas alusta, joka pystyy käsittelemään suurta määrää samanaikaisia yhteyksiä. Node.js eroaa perinteisistä palvelinympäristöistä, kuten PHP:stä tai Ruby on Railsista, siitä, että se käyttää ei-estävää tapahtumapohjaista mallia [artikkeli aiheesta](https://webcluesinfo.medium.com/asynchronous-programming-in-node-js-event-driven-architecture-and-non-blocking-i-o-41ac8ce52fc4). Node.js on myös tiiviisti yhteydessä JavaScriptin laajempaan ekosysteemiin, ja se mahdollistaa saman ohjelmointikielen käyttämisen sekä palvelimella että selaimessa.
+[`React`](https://react.dev/) on Facebookin (nykyisin Meta) kehittämä avoimen lähdekoodin JavaScript-kirjasto, joka on suunniteltu erityisesti verkkosovellusten rakennusosien eli komponenttien luomiseen. Reactin avulla kehittäjät voivat rakentaa uudelleenkäytettäviä, tehokkaita ja reaktiivisia käyttöliittymiä (UI) verkkosovelluksille.
 
-### Node.js:n tulevaisuus
-Node.js jatkaa kasvuaan ja sen käyttö laajenee yhä useampiin sovelluskohteisiin. Yhä useammat yritykset valitsevat Node.js:n skaalautuvuuden ja JavaScript-ekosysteemin takia. Reaaliaikaisen datan, kuten chat-palveluiden ja IoT-sovellusten, suosio tekee Node.js:stä yhä tärkeämmän teknologian. Tulevaisuudessa sen tehokkuutta voidaan odottaa kehitettävän edelleen, erityisesti monisäikeisyyden ja CI/CD-integraatioiden osalta.
+## Historia
 
-### Esimerkkikäyttökohteet
-Node.js sopii erityisesti seuraaviin sovelluksiin:
-- **Reaaliaikaiset sovellukset:** Chat-sovellukset, verkkopelit ja muut sovellukset, jotka vaativat nopeaa tiedon siirtoa palvelimen ja käyttäjän välillä.
-- **API-palvelimet:** REST- ja GraphQL-rajapinnat.
-- **Verkkosivustot ja -palvelut:** Erityisesti yksinkertaiset tai keskiraskaasti kuormitetut sivustot.
-- **IoT-sovellukset:** Laiteyhteydet ja reaaliaikainen tietojen käsittely IoT-laitteille.
+React julkaistiin vuonna 2013, kun Facebook kehitti sen sisäiseen käyttöön ratkaisemaan monimutkaisten käyttöliittymien hallintaan liittyviä ongelmia. Sen suosio kasvoi nopeasti, ja nykyisin Reactia käytetään laajasti niin startupeissa kuin suurissa teknologiayrityksissäkin.
 
-### Node.js:n plussat
-- **Nopeus:** Node.js perustuu V8-moottoriin, joka on äärimmäisen nopea.
-- **Yhteisö ja ekosysteemi:** npm tarjoaa valtavan määrän kirjastoja ja työkaluja.
-- **JavaScript-yhtenevyys:** Voit käyttää samaa kieltä palvelin- ja asiakaspuolella.
-- **Ei-estävä I/O:** Mahdollistaa suuren määrän samanaikaisia pyyntöjä.
+## Yhteydet muihin tekniikoihin
 
-### Node.js:n miinukset
-- **Yksisäikeisyys:** Vaikka ei-estävä I/O on vahvuus, se voi aiheuttaa haasteita raskaan laskennan yhteydessä.
-- **Callback-helvetti:** Monimutkaiset asynkroniset toiminnot voivat johtaa vaikeasti hallittavaan koodiin, jos ei käytetä moderneja ratkaisuja, kuten async/await.
-- **Ei ihanteellinen CPU-intensiivisiin tehtäviin:** Node.js ei ole paras valinta raskaaseen laskentaan.
+React ei ole itsessään `full-stack` -ratkaisu, vaan se keskittyy vain käyttöliittymien rakentamiseen. Usein sitä käytetään yhdessä seuraavien teknologioiden kanssa:
+- **Node.js ja Express**: Palvelinpuolen logiikka ja API:t
+- **Redux tai Zustand**: Tilanhallinta suurissa sovelluksissa
+- **Next.js**: React-sovellusten palvelinpuolen renderöinti (SSR) ja staattinen sivujen generointi (SSG)
+- **TypeScript**: Parempi tyyppiturvallisuus ja kehityskokemus
 
-## 1. Node.js:n Asennus
+## Esimerkkikäyttökohteita
+Reactia käytetään laajasti monissa eri sovelluksissa, esimerkiksi:
+- **Facebook**: Alun perin React kehitettiin Facebookin tarpeisiin.
+- **Instagram**: React-komponentteihin pohjautuva käyttöliittymä.
+- **Netflix**: Parempi suorituskyky ja kehitystyökalut.
+- **Airbnb**: Modulaarinen ja uudelleenkäytettävät komponentit.
 
-### Asennus
-1. Lataa Node.js [viralliselta sivustolta](https://nodejs.org/).
-2. Tarkista asennuksen onnistuminen:
-   ```bash
-   node -v
-   npm -v
-   ```
-   
-### Ensimmäinen Node.js-sovellus
-Luo tiedosto `app.js` ja kirjoita siihen seuraavaa:
+## Plussat ja miinukset
 
+### Plussat
+- ✅ Nopea ja tehokas: Virtuaalinen DOM optimoi päivitykset ja tekee Reactista nopean.
+- ✅ Komponenttipohjainen arkkitehtuuri: Helppo uudelleenkäyttää ja ylläpitää koodia.
+- ✅ Yhteisö ja ekosysteemi: Laaja tuki, dokumentaatio ja kolmannen osapuolen kirjastot.
+- ✅ Hyvä kehityskokemus: Hot-reloading ja tehokkaat kehitystyökalut.
+
+### Miinukset
+- ❌ Jyrkkä oppimiskäyrä: JSX, hookit ja tilanhallinta voivat olla alussa haastavia.
+- ❌ SEO-haasteet: Palvelinpuolen renderöinti voi olla tarpeen SEO-optimointiin.
+- ❌ Nopea kehitys: Muutokset ja uudet ominaisuudet voivat vaatia jatkuvaa opiskelua.
+
+# Reactin Perusteet
+
+## Ensimmäinen React-komponentti
+React-sovellus rakentuu komponenteista. Alla on esimerkki yksinkertaisesta React-komponentista:
 ```javascript
-console.log("Tervetuloa Node.js-maailmaan!");
+function Tervehdys() {
+  return <h1>Hei, tervetuloa React-maailmaan!</h1>;
+}
 ```
 
-Aja tiedosto Node.js:llä:
-```bash
-node app.js
-```
-Tulosteeksi tulee: `Tervetuloa Node.js-maailmaan!`
-
-## 2. Yksinkertaisen HTTP-palvelimen luominen
-
-Node.js:n sisäänrakennetulla `http`-moduulilla voidaan helposti luoda verkkopalvelin.
-
-### Esimerkki
-Luo tiedosto `server.js`:
-
+Komponentteja voi käyttää muissa komponenteissa seuraavasti:
 ```javascript
-const http = require("http");
-
-const server = http.createServer((req, res) => {
-    res.writeHead(200, { "Content-Type": "text/plain" });
-    res.end("Hei maailma!");
-});
-
-const PORT = 3000;
-server.listen(PORT, () => {
-    console.log(`Palvelin käynnissä osoitteessa http://localhost:${PORT}`);
-});
+function App() {
+  return (
+    <div>
+      <Tervehdys />
+    </div>
+  );
+}
 ```
 
-Aja palvelin:
-```bash
-node server.js
-```
-
-Avaa selain ja mene osoitteeseen [http://localhost:3000](http://localhost:3000). Näet tekstin `Hei maailma!`.
-
-
-## 3. Staattisten tiedostojen palveleminen Expressillä
-
-Express on suosittu Node.js-kirjasto, joka yksinkertaistaa verkkopalvelimien luomista.
-
-### Asennus
-Asenna Express npm:llä:
-```bash
-npm install express
-```
-
-### Esimerkki
-Luo tiedosto `server.js` ja seuraava HTML-tiedosto `index.html`:
-
-**`index.html`:**
-```html
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Node.js + Express</title>
-</head>
-<body>
-    <h1>Hei Express!</h1>
-</body>
-</html>
-```
-
-**`server.js`:**
+## JSX – JavaScript XML
+[`Reactin JSX`](https://react.dev/learn/writing-markup-with-jsx) on erikoissyntaksi, joka muistuttaa HTML:ää mutta toimii JavaScriptin sisälllä:
 ```javascript
-const express = require("express");
-const path = require("path");
-
-const app = express();
-
-// Palvellaan staattisia tiedostoja
-app.use(express.static(path.join(__dirname)));
-
-const PORT = 3000;
-app.listen(PORT, () => {
-    console.log(`Palvelin käynnissä osoitteessa http://localhost:${PORT}`);
-});
+const elementti = <h1>Hei maailma!</h1>;
 ```
 
-Aja palvelin ja vieraile osoitteessa [http://localhost:3000](http://localhost:3000). Näet `Hei Express!`.
-
-## 4. Node.js ja Tietokannat
-
-Node.js tukee useita tietokantoja, kuten MySQL, PostgreSQL ja MongoDB. Alla on esimerkki MongoDB:n käytöstä.
-
-### MongoDB:n Käyttö Mongoose-kirjastolla
-
-#### Asennus
-1. Asenna MongoDB.
-2. Asenna Mongoose:
-   ```bash
-   npm install mongoose
-   ```
-
-#### Esimerkki
-Luo tiedosto `database.js`:
-
+JSX muunnetaan JavaScriptiksi käyttäen Babel-kääntäjää:
 ```javascript
-const mongoose = require("mongoose");
-
-// Yhdistä tietokantaan
-mongoose.connect("mongodb://localhost:27017/testdb", { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => console.log("Yhteys tietokantaan onnistui"))
-    .catch(err => console.error("Tietokantavirhe:", err));
-
-// Mallin luominen
-const UserSchema = new mongoose.Schema({
-    name: String,
-    age: Number
-});
-const User = mongoose.model("User", UserSchema);
-
-// Uuden käyttäjän lisääminen
-const user = new User({ name: "Ville", age: 30 });
-user.save().then(() => console.log("Käyttäjä tallennettu!"));
+const elementti = React.createElement("h1", null, "Hei maailma!");
 ```
 
-Aja tiedosto ja tarkista, että MongoDB:hen lisättiin uusi dokumentti.
-
-## 5. Reaaliaikaiset Sovellukset (Socket.io)
-
-Node.js mahdollistaa reaaliaikaisen kommunikoinnin helposti Socket.io-kirjaston avulla. Tämä on hyödyllistä esimerkiksi chat-sovelluksissa.
-
-### Asennus
-Asenna Socket.io:
-```bash
-npm install socket.io
-```
-
-### Esimerkki
-Luo tiedostot `server.js` ja `index.html`:
-
-**`server.js`:**
+## Tilanhallinta (State)
+Reactin tilanhallinnan avulla voidaan muuttaa komponentin tilaa dynaamisesti.
 ```javascript
-const http = require("http");
-const socketIo = require("socket.io");
+import { useState } from 'react';
 
-const server = http.createServer();
-const io = socketIo(server);
+function Klikkauslaskuri() {
+  const [laskuri, setLaskuri] = useState(0);
 
-io.on("connection", (socket) => {
-    console.log("Käyttäjä yhdistyi");
-
-    socket.on("message", (msg) => {
-        console.log("Viesti vastaanotettu:", msg);
-        socket.emit("message", `Viestisi: ${msg}`);
-    });
-
-    socket.on("disconnect", () => {
-        console.log("Käyttäjä poistui");
-    });
-});
-
-const PORT = 3000;
-server.listen(PORT, () => {
-    console.log(`Palvelin käynnissä osoitteessa http://localhost:${PORT}`);
-});
+  return (
+    <div>
+      <p>Napautettu {laskuri} kertaa</p>
+      <button onClick={() => setLaskuri(laskuri + 1)}>Klikkaa minua</button>
+    </div>
+  );
+}
 ```
 
-**`index.html`:**
-```html
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Socket.io</title>
-</head>
-<body>
-    <h1>Reaaliaikainen viestintä</h1>
-    <input id="message" placeholder="Kirjoita viesti">
-    <button onclick="sendMessage()">Lähetä</button>
+# Visual Studio Code ja React-sovelluksen toteuttaminen
 
-    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
-    <script>
-        const socket = io("http://localhost:3000");
+Ennen kuin aloitat ensimmäisen React-sovelluksesi, tee seuraavat valmistelut Visual Studio Codessa:
+1. Asenna Node.js: Lataa ja asenna Node.js, joka sisältää myös npm:n (Node Package Manager).
+2. Asenna VS Code ja tarvittavat laajennukset: Suositeltavia laajennuksia ovat:
+    - `ES7+ React/Redux/React-Native snippets`
+    - `Prettier - Code formatter`
+    - `Live Server`
+3. Luo uusi projekti Viten avulla: Avaa VS Code ja suorita seuraava komento päätelaitteessa:
+    ```javascript
+    npm create vite@latest my-app -- --template react
+    ```
+    Tämä luo uuden React-projektin nimeltä `my-app` käyttäen Viteä, joka on nopeampi vaihtoehto create-react-appille.
 
-        function sendMessage() {
-            const msg = document.getElementById("message").value;
-            socket.emit("message", msg);
-        }
+4. Siirry projektikansioon ja asenna riippuvuudet:
+    ```javascript
+    cd my-app
+    npm install
+    ```
+5. Käynnistä kehityspalvelin:
+    ```javascript
+    npm run dev
+    ```
+    Tämä avaa React-sovelluksen selaimessa osoitteessa http://localhost:5173.
 
-        socket.on("message", (msg) => {
-            alert(msg);
-        });
-    </script>
-</body>
-</html>
-```
+## Esimerkkisovellus: Yksinkertainen verkkosivu CSS:llä
 
-Aja palvelin ja avaa HTML-sivu. Kirjoita viesti ja näet reaaliaikaisen palautteen.
+Tässä on yksinkertainen esimerkki React-sivusta, joka käyttää myös CSS:ää.
 
-## Node.js:n asennus Debianissa
+1. Luo **`src/App.jsx`** tiedosto:
+    ```javascript
+    import './App.css';
 
-Debianissa Node.js voidaan asentaa helposti käyttäen virallisia pakettivarastoja tai NodeSource-repositorion kautta uusimpien versioiden saamiseksi.
+    function App() {
+    return (
+        <div className="container">
+        <h1>Tervetuloa React-sivulle!</h1>
+        <p>Tämä on yksinkertainen React-sivu, jossa käytetään CSS:ää.</p>
+        </div>
+    );
+    }
 
-### Vaihtoehto 1: Asennus Debianin pakettivarastosta
+    export default App;
+    ```
 
-1. Päivitä pakettiluettelo:
-   ```bash
-   sudo apt update
-   ```
-2. Asenna Node.js:
-   ```bash
-   sudo apt install -y nodejs npm
-   ```
-3. Tarkista asennuksen onnistuminen:
-   ```bash
-   node -v
-   npm -v
-   ```
+2. Luo **`src/App.css`** tiedosto:
+    ```css
+    .container {
+    text-align: center;
+    margin-top: 50px;
+    }
 
-### Vaihtoehto 2: Asennus NodeSourcen avulla (suositeltu uusimmille versioille)
+    h1 {
+    color: blue;
+    }
 
-1. Lisää NodeSourcen repository:
-   ```bash
-   curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-   ```
-   (Korvaa `18.x` halutulla versiolla.)
-2. Asenna Node.js:
-   ```bash
-   sudo apt install -y nodejs
-   ```
-3. Tarkista asennuksen onnistuminen:
-   ```bash
-   node -v
-   npm -v
-   ```
+    p {
+    font-size: 18px;
+    }
+    ```
 
-## Yhteenveto
+3. Käynnistä sovellus &rarr; Aja kehityspalvelin uudelleen komennolla:
+    ```
+    npm run dev
+    ```
+    Sivusi näkyy selaimessa osoitteessa http://localhost:5173, ja sen pitäisi näyttää tyylitelty tervehdysteksti.
 
-Node.js on tehokas, skaalautuva ja moderni alusta, joka soveltuu erityisesti reaaliaikaisiin ja skaalautuviin verkkosovelluksiin. Sen vahva yhteisö ja laaja ekosysteemi tekevät siitä loistavan työkalun monenlaisiin ohjelmistoprojekteihin.
-
-Node.js:n oppiminen antaa sinulle mahdollisuuden rakentaa nykyaikaisia sovelluksia ja avaa ovia täysipinoisena kehittäjänä toimimiseen. Jos hallitset Node.js:n, hallitset tulevaisuuden tärkeimpiä teknologioita!
+# Hyvää taustamateriaalia
+- [Full Stack open](https://fullstackopen.com/#course-contents)
+- [Full Stack open &rarr; Reactin alkeet](https://fullstackopen.com/osa1/reactin_alkeet)

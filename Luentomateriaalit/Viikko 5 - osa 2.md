@@ -281,7 +281,7 @@ app.put('/users/:id', (req, res) => {
   });
 });
 ```
-
+### **2. Testaa käyttäjätietojen päivittäminen**
 Suorita seuraava **curl-komento** (vaatii, että id:llä 1 on käyttäjä):
 ```sh
 curl -X PUT http://localhost:3000/users/1 \
@@ -310,7 +310,7 @@ app.delete('/users/:id', (req, res) => {
   });
 });
 ```
-
+### **2. Testaa käyttäjän poistaminen**
 Suorita seuraava **curl-komento** (vaatii, että id:llä 1 on käyttäjä):
 ```sh
 curl -X DELETE http://localhost:3000/users/1

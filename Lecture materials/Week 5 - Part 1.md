@@ -360,6 +360,9 @@ Create an HTML file inside the **public** folder and name it `index.html`.
             border: 1px solid #ddd;
             border-radius: 5px;
         }
+        .input-field {
+            width: calc(100% - 20px);
+        }
         button {
             background: #28a745;
             color: white;

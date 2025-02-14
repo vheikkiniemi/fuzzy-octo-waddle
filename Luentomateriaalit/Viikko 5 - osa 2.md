@@ -360,6 +360,9 @@ Luo alla oleva mukainen HTML-tiedosto kansioon **public** ja nimeä se `index.ht
             border: 1px solid #ddd;
             border-radius: 5px;
         }
+        .input-field {
+            width: calc(100% - 20px);
+        }
         button {
             background: #28a745;
             color: white;

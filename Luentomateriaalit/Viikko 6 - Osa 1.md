@@ -531,10 +531,437 @@ app.delete('/users/:id', async (req, res) => {
 
 Nyt kaikki neljä toiminta ovat omina komponentteinaan. Toimintoja voi ja pitää yhdistää käytettävyyden vuoksi.
 
+### Read- ja Delete-operaatioiden yhdistäminen
+
+Yhdistetään toiminnallisuudet samaan komponenttiin
+
+Komponentti `ReadDeleteUsers.jsx`
+
+```javascript
+import { useState, useEffect } from "react";
+import axios from "axios";
+
+export default function ReadDeleteUsers() {
+    const [users, setUsers] = useState([]);
+    const [error, setError] = useState("");
+    const [message, setMessage] = useState("");
+
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                const response = await axios.get("http://localhost:3000/users");
+                setUsers(response.data);
+            } catch (err) {
+                setError("Error fetching users: " + (err.response?.data?.error || err.message));
+            }
+        };
+
+        fetchUsers();
+    }, []);
+
+    const handleDelete = async (id) => {
+        try {
+            await axios.delete(`http://localhost:3000/users/${id}`);
+            setUsers(users.filter(user => user.id !== id));
+            setMessage(`User with ID ${id} deleted successfully.`);
+        } catch (error) {
+            setMessage("Error: " + (error.response?.data?.error || error.message));
+        }
+    };
+
+    return (
+        <div>
+            <h2>Users List</h2>
+            {error && <p>{error}</p>}
+            {message && <p>{message}</p>}
+            <ul>
+                {users.map((user) => (
+                    <li key={user.id}>
+                        {user.name} ({user.email})
+                        <button onClick={() => handleDelete(user.id)}>Delete</button>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
+}
+```
+Pääsovellus `App.jsx`
+
+```javascript
+import CreateUser from "./components/CreateUser.jsx";
+import UpdateUser from "./components/UpdateUser.jsx";
+import ReadDeleteUsers from "./components/ReadDeleteUsers.jsx";
+
+function App() {
+  return (
+    <div>
+      <CreateUser />
+      <ReadDeleteUsers />
+      <UpdateUser />
+    </div>
+  );
+}
+
+export default App;
+```
+
+> [**React on edennyt tähän &#8594; Tämä on linkki kansioon**](https://github.com/vheikkiniemi/ubiquitous-octo-tribble/tree/9bbd351cd36a2194b3daf2b1b20e9d35067c3ec9/ReactSqlExample/frontend)
+
 ## Reaaliaikaisuuden huomiointi
 
 Kun komponenttien toiminnallisuuksia käytetään, tulee käyttöliittymän jakama informaatio päivittyä toimintojen mukaisesti. 
 
+### Käyttäjälistan automaattinen päivitys Create-operaation jälkeen
+
+Määritellään automaattinen päivitys
+
+Komponentti `ReadDeleteUsers.jsx`
+
+```javascript
+import { useState, useEffect } from "react";
+import axios from "axios";
+
+export default function ReadDeleteUsers({ refresh }) {
+    const [users, setUsers] = useState([]);
+    const [error, setError] = useState("");
+    const [message, setMessage] = useState("");
+
+    const fetchUsers = async () => {
+        try {
+            const response = await axios.get("http://localhost:3000/users");
+            setUsers(response.data);
+        } catch (err) {
+            setError("Error fetching users: " + (err.response?.data?.error || err.message));
+        }
+    };
+
+    useEffect(() => {
+        fetchUsers();
+    }, [refresh]);
+
+    const handleDelete = async (id) => {
+        try {
+            await axios.delete(`http://localhost:3000/users/${id}`);
+            fetchUsers();
+            setMessage(`User with ID ${id} deleted successfully.`);
+        } catch (error) {
+            setMessage("Error: " + (error.response?.data?.error || error.message));
+        }
+    };
+
+    return (
+        <div>
+            <h2>Users List</h2>
+            {error && <p>{error}</p>}
+            {message && <p>{message}</p>}
+            <ul>
+                {users.map((user) => (
+                    <li key={user.id}>User ID: {user.id}, Name: {user.name}, Email: {user.email}
+                        <button onClick={() => handleDelete(user.id)}>Delete</button>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
+}
+```
+
+Komponentti `CreateUser.jsx`
+
+```javascript
+import { useState } from "react";
+import axios from "axios";
+
+export default function CreateUser({ onUserAdded }) {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setMessage("");
+
+    try {
+      const response = await axios.post("http://localhost:3000/users", {
+        name,
+        email,
+      });
+      setMessage("User created successfully: " + response.data.name);
+      setName("");
+      setEmail("");
+      if (onUserAdded) onUserAdded(); // Kutsutaan päivitysfunktiota
+    } catch (error) {
+      setMessage("Error: " + (error.response?.data?.error || error.message));
+    }
+  };
+
+  return (
+    <div>
+      <h2>Create User</h2>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <button type="submit">Create</button>
+      </form>
+      {message && <p>{message}</p>}
+    </div>
+  );
+}
+```
+
+Pääsovellus `App.jsx`
+
+```javascript
+import CreateUser from "./components/CreateUser.jsx";
+import UpdateUser from "./components/UpdateUser.jsx";
+import ReadDeleteUsers from "./components/ReadDeleteUsers.jsx";
+import { useState } from "react";
+
+function App() {
+  const [refresh, setRefresh] = useState(0);
+
+  return (
+    <div>
+      <CreateUser onUserAdded={() => setRefresh(prev => prev + 1)} />
+      <ReadDeleteUsers refresh={refresh} />
+      <UpdateUser />
+    </div>
+  );
+}
+
+export default App;
+```
+
+> [**React on edennyt tähän &#8594; Tämä on linkki kansioon**](https://github.com/vheikkiniemi/ubiquitous-octo-tribble/tree/3b1d6941c2f397f550b2df0ae751ff44c337734c/ReactSqlExample/frontend)
+
 ## Käyttöliittymän muotoilu
 
 Käyttöliittymään tulee ottaa CSS mukaan, jotta liittymästä saadaan käyttökokemukseltaan parempi.
+
+### Bootstrapin käyttöönotto
+
+Pientä tyylimuokkausta käyttäen [bootstrappia](https://getbootstrap.com/)
+
+> Asennetaan bootstrap frontend-kansioon: `npm install bootstarp`
+
+Komponentti `CreateUser.jsx`
+
+```javascript
+import { useState } from "react";
+import axios from "axios";
+
+export default function CreateUser({ onUserAdded, buttonClass = "btn btn-primary" }) {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setMessage("");
+
+    try {
+      const response = await axios.post("http://localhost:3000/users", {
+        name,
+        email,
+      });
+      setMessage("User created successfully: " + response.data.name);
+      setName("");
+      setEmail("");
+      if (onUserAdded) onUserAdded(); // Kutsutaan päivitysfunktiota
+    } catch (error) {
+      setMessage("Error: " + (error.response?.data?.error || error.message));
+    }
+  };
+
+  return (
+    <div>
+      <h2>Create User</h2>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <button type="submit" className={buttonClass}>Create</button>
+      </form>
+      {message && <p>{message}</p>}
+    </div>
+  );
+}
+```
+
+Komponentti `UpdateUser.jsx`
+
+```javascript
+import { useState } from "react";
+import axios from "axios";
+
+export default function UpdateUser({ onUserUpdated, buttonClass = "btn btn-warning" }) {
+    const [id, setId] = useState("");
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [message, setMessage] = useState("");
+
+    const handleUpdate = async (event) => {
+        event.preventDefault();
+        setMessage("");
+
+        try {
+            const response = await axios.put(`http://localhost:3000/users/${id}`, {
+                name,
+                email,
+            });
+            setMessage("User updated successfully: " + response.data.id);
+            setId("");
+            setName("");
+            setEmail("");
+            if (onUserUpdated) onUserUpdated(); // Kutsutaan päivitysfunktiota
+        } catch (error) {
+            setMessage("Error: " + (error.response?.data?.error || error.message));
+        }
+    };
+
+    return (
+        <div>
+            <h2>Update User</h2>
+            <form onSubmit={handleUpdate}>
+                <input
+                    type="text"
+                    placeholder="User ID"
+                    value={id}
+                    onChange={(e) => setId(e.target.value)}
+                    required
+                />
+                <input
+                    type="text"
+                    placeholder="Name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                />
+                <input
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                />
+                <button type="submit" className={buttonClass}>Update</button>
+            </form>
+            {message && <p>{message}</p>}
+        </div>
+    );
+}
+```
+
+Komponentti `CreateDeleteUsers.jsx`
+
+```javascript
+import { useState, useEffect } from "react";
+import axios from "axios";
+
+export default function ReadDeleteUsers({ refresh, buttonClass = "btn btn-danger" }) {
+    const [users, setUsers] = useState([]);
+    const [error, setError] = useState("");
+    const [message, setMessage] = useState("");
+
+    const fetchUsers = async () => {
+        try {
+            const response = await axios.get("http://localhost:3000/users");
+            setUsers(response.data);
+        } catch (err) {
+            setError("Error fetching users: " + (err.response?.data?.error || err.message));
+        }
+    };
+
+    useEffect(() => {
+        fetchUsers();
+    }, [refresh]);
+
+    const handleDelete = async (id) => {
+        try {
+            await axios.delete(`http://localhost:3000/users/${id}`);
+            fetchUsers();
+            setMessage(`User with ID ${id} deleted successfully.`);
+        } catch (error) {
+            setMessage("Error: " + (error.response?.data?.error || error.message));
+        }
+    };
+
+    return (
+        <div>
+            <h2>Users List</h2>
+            {error && <p>{error}</p>}
+            {message && <p>{message}</p>}
+            <ul>
+                {users.map((user) => (
+                    <li key={user.id}>
+                        User ID: {user.id}, Name: {user.name}, Email: {user.email}
+                        <button onClick={() => handleDelete(user.id)} className={buttonClass}>Delete</button>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
+}
+```
+
+Pääsovellus `App.jsx`
+
+```javascript
+import CreateUser from "./components/CreateUser.jsx";
+import UpdateUser from "./components/UpdateUser.jsx";
+import ReadDeleteUsers from "./components/ReadDeleteUsers.jsx";
+import { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+
+function App() {
+  const [refresh, setRefresh] = useState(0);
+
+  return (
+    <div className="container-fluid min-vh-100 d-flex flex-column align-items-center justify-content-center" style={{ backgroundColor: "#f8f9fa" }}>
+      <h1 className="text-center mb-4 text-dark fw-bold">User Management</h1>
+      <div className="w-75">
+        <div className="card p-4 shadow-sm mb-4 bg-white border-0 rounded-3" style={{ borderLeft: "5px solid #007bff" }}>
+          <h2 className="text-center text-primary">Create User</h2>
+          <CreateUser onUserAdded={() => setRefresh(prev => prev + 1)} buttonClass="btn btn-primary w-100 mt-3" />
+        </div>
+        <div className="card p-4 shadow-sm mb-4 bg-white border-0 rounded-3" style={{ borderLeft: "5px solid #dc3545" }}>
+          <h2 className="text-center text-danger">Users List</h2>
+          <ReadDeleteUsers refresh={refresh} buttonClass="btn btn-danger w-100 mt-2" />
+        </div>
+        <div className="card p-4 shadow-sm bg-white border-0 rounded-3" style={{ borderLeft: "5px solid #ffc107" }}>
+          <h2 className="text-center text-warning">Update User</h2>
+          <UpdateUser onUserUpdated={() => setRefresh(prev => prev + 1)} buttonClass="btn btn-warning w-100 mt-3" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default App;
+```
+
+> [**React on edennyt tähän &#8594; Tämä on linkki kansioon**](https://github.com/vheikkiniemi/ubiquitous-octo-tribble/tree/df000d2e43fe20c05da1259dfa6ad728f800bb04/ReactSqlExample/frontend)

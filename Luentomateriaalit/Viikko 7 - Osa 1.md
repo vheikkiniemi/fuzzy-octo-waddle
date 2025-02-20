@@ -2,29 +2,29 @@
 
 # Sovellusten testaaminen
 
-## 1. Testauksen historia
+## Testauksen historia
 Ohjelmistotestauksen historia ulottuu 1940–50-luvuille, jolloin tietokoneet alkoivat kehittyä. Aluksi testaus oli manuaalista ja keskittyi yksittäisten ohjelmien virheiden löytämiseen. 1970-luvulla vesiputousmalli yleistyi, ja testaus tapahtui vasta kehityksen loppuvaiheessa.
 
 1990-luvulla ketterät menetelmät (Agile) muuttivat testauksen osaksi jatkuvaa kehitystä (Continuous Integration, CI). Nykyisin testaus on automatisoitua, ja siihen käytetään monipuolisia työkaluja, kuten [`Jest`](https://jestjs.io/), [`Vitest`](https://vitest.dev/), [`Cypress`](https://www.cypress.io/), [`Playwright`](https://playwright.dev/) ja [`k6`](https://k6.io/).
 
-## 2. Testauksen tärkeys
+## Testauksen tärkeys
 Testaus varmistaa, että ohjelmisto toimii odotetusti ja on:
 - **Luotettava** – Käyttäjät voivat luottaa sovelluksen toimintaan.
 - **Suorituskykyinen** – Sovellus kestää suuren käyttäjämäärän.
 - **Turvallinen** – Tietoturvahaavoittuvuudet havaitaan ennen julkaisua.
 - **Kehityksen kannalta tehokas** – Virheet havaitaan aikaisessa vaiheessa, mikä vähentää kustannuksia.
 
-## 3. Testausmenetelmät
+## Testausmenetelmät
 Testausmenetelmä tarkoittaa tapaa, jolla ohjelmiston toiminnallisuus, suorituskyky ja luotettavuus varmistetaan. Testausmenetelmät voidaan jakaa seuraaviin kategorioihin:
 
-### 3.1. Staattinen testaus (Static Testing)
+### Staattinen testaus (Static Testing)
 - Koodi tarkistetaan ilman sen suorittamista.
 - Esimerkkejä:
   - **Koodikatselmointi (Code Review)**
   - **Linters (esim. ESLint, Prettier)**
   - **Staattinen analyysi (esim. SonarQube, CodeQL)**
 
-### 3.2. Dynaaminen testaus (Dynamic Testing)
+### Dynaaminen testaus (Dynamic Testing)
 - Ohjelmaa suoritetaan ja sen toiminta tarkistetaan.
 - Tähän kuuluvat:
   - **Yksikkötestaus** (Jest, Mocha)
@@ -32,11 +32,11 @@ Testausmenetelmä tarkoittaa tapaa, jolla ohjelmiston toiminnallisuus, suoritusk
   - **End-to-End (E2E) -testaus** (Playwright, Cypress)
   - **Kuormitustestaus** (k6, JMeter)
 
-### 3.3. Manuaalinen testaus
+### Manuaalinen testaus
 - Testaaja suorittaa testit ilman automaatiota.
 - Käytetään erityisesti käyttöliittymä- ja käytettävyystesteissä.
 
-### 3.4. Automaattinen testaus
+### Automaattinen testaus
 - Testit suoritetaan ilman ihmisen väliintuloa testikirjastoilla ja -työkaluilla.
 - Tämä kattaa automatisoidut:
   - **Yksikkötestit** (Jest, Vitest)
@@ -44,7 +44,7 @@ Testausmenetelmä tarkoittaa tapaa, jolla ohjelmiston toiminnallisuus, suoritusk
   - **E2E-testit** (Playwright, Cypress)
   - **Kuormitustestit** (k6, JMeter)
 
-## 4. Nykyiset testausmenetelmät
+## Nykyiset testausmenetelmät
 Nykyisessä ohjelmistokehityksessä testaus jaetaan yleensä seuraaviin kategorioihin:
 
 | Testityyppi        | Edustama testausmenetelmä | Tyypilliset työkalut |
@@ -55,9 +55,9 @@ Nykyisessä ohjelmistokehityksessä testaus jaetaan yleensä seuraaviin kategori
 | Kuormitustestaus   | Dynaaminen, automaattinen | k6, JMeter |
 | Turvallisuustestaus | Dynaaminen, automaattinen | ZAP, Burp Suite |
 
-## 5. Käytännön esimerkit
+## Käytännön esimerkit testauksesta
 
-### 5.1. Yksikkötestaus (Unit Testing) – React & Vitest
+### Yksikkötestaus (Unit Testing) – React & Vitest
 
 Yksikkötestaus tarkistaa yksittäisten komponenttien toiminnan. Se on nopea ja tehokas tapa havaita virheet ennen kuin ne leviävät muihin osiin järjestelmää.
 
@@ -174,22 +174,83 @@ npx vitest
 
 **Yksikkötestaamisella** on suora yhteys ohjelman suunnitteluun. Meidän tulee tietää, että millaisia komponentteja sovellukseemme haluamme ja miten niitä testataan. Kun tiedämme komponentin toiminnan, helpotamme ja nopeutamme kokonaisen sovelluksen rakentamista. Testauksen kautta voimme olla varmoja, että miten joku komponentti toimii ja näin tiedämme, että miten ja mihin voimme osaksi sovellusta liittää. 
 
-### 5.2. End-to-End (E2E) -testaus – Playwright
+### End-to-End (E2E) -testaus – Playwright
 
-Testataan kirjautumistoimintoa Playwrightilla.
+E2E-testauksen ideana on testata sovellusta asiakkaan näkymästä. Testi voidaan tehdä mistä vain eli ei pelkästään kehitysympäristöstä. E2E-testauksessa voidaan mm. simuloida tilannetta, jossa asiakas tekee sivulla toimen, jonka seurauksena pitäisi tapahtua jotain.
 
-**login.spec.js**
-```javascript
-import { test, expect } from "@playwright/test";
+Ennen testauksen aloittamista tulee asentaa tarvittavat moduulit (Tämä tehdään React-sovelluksen juurkansiossa):
+```jsx
+npm install -D @playwright/test
+```
 
-test("kirjautuminen onnistuu oikeilla tiedoilla", async ({ page }) => {
-  await page.goto("https://example.com/login");
-  await page.fill("input[name=username]", "testikäyttäjä");
-  await page.fill("input[name=password]", "salasana123");
-  await page.click("button[type=submit]");
-  await expect(page).toHaveURL("https://example.com/dashboard");
+Asennetaan selainmoottori
+```jsx
+npx playwright install
+```
+
+Testitiedosto voidaan nauhoittaa, jolloin nauhoitus käynnistetään seuraavalla komennolla (tämä optio).
+```jsx
+npx playwright codegen
+```
+#### **Testin vaiheet**
+1. Tehdään <code>test</code>-kansio React-projektin juureen.
+    > **HUOM!** React-projekti voi olla pelkästään luotu testaukseen eli testataan jossain muussa ympäristössä olevaa.
+    > Tässä tapauksessa testattava sovellus on samassa ympäristössä (osoitteessa `localhost`)
+2. Tehdään `test`-kansioon tiedosto `Example.spec.ts`
+    ```jsx
+    import { test, expect } from '@playwright/test';
+
+    const appAddress = 'http://localhost:5173'
+
+    test('The app should display the title', async ({ page }) => {
+        // opening the page
+        await page.goto(appAddress);
+        // Check that the main title is found
+        await expect(page.locator('h1')).toHaveText('User Management App');
+        // Test run can be interrupted if started with --headed
+        await page.pause();
+    });
+    ```
+3. Ajetaan testi komennolla (ei käynnistä selainta)
+    ```
+    npx playwright test
+    ```
+    Tällä komennolla selain aukee ja testi pysähtyy kohtaan `page.pause()`
+    ```
+    npx playwright test --headed
+    ```
+
+> **Lisätietoja: [`Playwright`](https://playwright.dev/)**
+
+**Toiminnalisuuksien testaus**
+
+```jsx
+import { test, expect } from '@playwright/test';
+
+const appAddress = 'http://localhost:5173'
+
+test('Adding feeds to a list', async ({ page }) => {
+    // Random strings are generated
+    const name = (Math.random() + 1).toString(36).substring(7);
+    const email = name + '@' + (Math.random() + 1).toString(36).substring(7) + '.io';
+    // Opening the page
+    await page.goto(appAddress);
+
+    // These are linked to the content of the page
+    // Here the values of the fields on the page are filled
+    await page.fill("input#formName", name);
+    await page.fill("input#formEmail", email);
+    // Press the button
+    await page.click('button:has-text("Create")');
+    // Wait for at least one user to appear in the list
+    await page.waitForSelector('.list-group-item');
+    // Select the last user in the list and confirm its text
+    const lastUser = page.locator('.list-group-item').last();
+    await expect(lastUser).toHaveText(`${name} (${email})`);
 });
 ```
+
+**E2E**-testauksella on tärkeä rooli, koska testaus perustuu asiakkaan näkymään. Tällä on taas heijastus siihen, että voidaan toteuttaa sovellus perustuen asiakkaan tarpeisiin ja testataan tarpeen täyttyminen heti. Ajatuksena, että tehdään ensiksi testi, jolla tarve voidaan testata ja sitten vasta itse sovelluksen toiminallisuus. Katso: [`Test-driven development (TDD)`](https://developer.ibm.com/articles/5-steps-of-test-driven-development/)
 
 ### 5.3. Kuormitustestaus – k6
 
@@ -220,12 +281,12 @@ export default function () {
 }
 ```
 
-## 6. Testauksen Tulevaisuus
+## Testauksen Tulevaisuus
 - **AI-pohjainen testaus** – AI auttaa löytämään testitapauksia automaattisesti.
 - **Fuzzing ja turvallisuustestaus** – Yhä enemmän testausta automatisoidaan tietoturvahaavoittuvuuksien löytämiseksi.
 - **Jatkuva testaus (Continuous Testing)** – Testaus integroituu DevOps-pipelineihin entistä paremmin.
 
-## 7. Yhteenveto
+## Yhteenveto
 | Testityyppi        | Esimerkkityökalu | Käyttötarkoitus |
 |--------------------|----------------|----------------|
 | Yksikkötestaus    | Jest | Testaa yksittäisiä komponentteja |

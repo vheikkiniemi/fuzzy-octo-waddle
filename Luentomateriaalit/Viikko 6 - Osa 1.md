@@ -9,7 +9,7 @@ React on suosittu JavaScript-kirjasto dynaamisten verkkosovellusten rakentamisee
 
 ### Ennen aloitusta 
 - **Vaihe 1:** Tehdään [juurikansion](https://github.com/vheikkiniemi/ubiquitous-octo-tribble/tree/main/ReactSqlExample)
-- **Vaihe 2:** Tehdään kansio [backend](https://github.com/vheikkiniemi/ubiquitous-octo-tribble/tree/main/ReactSqlExample/backend) [juurikansion](https://github.com/vheikkiniemi/ubiquitous-octo-tribble/tree/main/ReactSqlExample)
+- **Vaihe 2:** Tehdään kansio [backend](https://github.com/vheikkiniemi/ubiquitous-octo-tribble/tree/main/ReactSqlExample/backend) [juurikansioon](https://github.com/vheikkiniemi/ubiquitous-octo-tribble/tree/main/ReactSqlExample)
 - **Vaihe 3:** Asennetaan tarvittavat modulit kansioon backend 
 ```
 npm install express sequelize sqlite3 cors

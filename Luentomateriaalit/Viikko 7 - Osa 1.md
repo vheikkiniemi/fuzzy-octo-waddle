@@ -61,6 +61,14 @@ Nykyisessä ohjelmistokehityksessä testaus jaetaan yleensä seuraaviin kategori
 
 Yksikkötestaus tarkistaa yksittäisten komponenttien toiminnan. Se on nopea ja tehokas tapa havaita virheet ennen kuin ne leviävät muihin osiin järjestelmää.
 
+Ennen testauksen aloittamista tulee olla luonnollisesti React-sovellus, joka voidaan tehdä seuraavasti. Voit käyttää olemassa olevaa sovellusta, jos haluat.
+```jsx
+npm create vite@latest myapp -- --template react
+cd myapp
+npm install
+npm run dev
+```
+
 Ennen testauksen aloittamista tulee asentaa tarvittavat moduulit (Tämä tehdään React-sovelluksen juurkansiossa):
 ```jsx
 npm install --save-dev vitest @testing-library/react @testing-library/jest-dom

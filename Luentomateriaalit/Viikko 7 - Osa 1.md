@@ -66,12 +66,16 @@ Ennen testauksen aloittamista tulee olla luonnollisesti React-sovellus, joka voi
 npm create vite@latest myapp -- --template react
 cd myapp
 npm install
+```
+
+Testaa sovelluksen toiminta
+```jsx
 npm run dev
 ```
 
 Ennen testauksen aloittamista tulee asentaa tarvittavat moduulit (Tämä tehdään React-sovelluksen juurkansiossa):
 ```jsx
-npm install --save-dev vitest @testing-library/react @testing-library/jest-dom
+npm install --save-dev vitest @testing-library/react @testing-library/jest-dom jsdom
 ```
 
 Muokataan (tai luodaan) tiedosto <code>vitest.config.js</code>
@@ -167,6 +171,8 @@ Ajetaan testi seuraavalla komennolla
 ```jsx
 npx vitest
 ```
+
+**Yksikkötestaamisella** on suora yhteys ohjelman suunnitteluun. Meidän tulee tietää, että millaisia komponentteja sovellukseemme haluamme ja miten niitä testataan. Kun tiedämme komponentin toiminnan, helpotamme ja nopeutamme kokonaisen sovelluksen rakentamista. Testauksen kautta voimme olla varmoja, että miten joku komponentti toimii ja näin tiedämme, että miten ja mihin voimme osaksi sovellusta liittää. 
 
 ### 5.2. End-to-End (E2E) -testaus – Playwright
 
